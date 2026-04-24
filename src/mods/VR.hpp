@@ -376,6 +376,10 @@ public:
         return m_world_scale->value();
     }
 
+    void set_world_scale(float scale) {
+        m_world_scale->value() = scale;
+    }
+
     auto is_stereo_emulation_enabled() const {
         return m_stereo_emulation_mode;
     }

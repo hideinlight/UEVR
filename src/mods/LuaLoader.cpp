@@ -13,6 +13,7 @@
 #include "bindings/ImGui.hpp"
 #include "bindings/FS.hpp"
 #include "bindings/Json.hpp"
+#include "bindings/VRBinding.hpp"
 
 std::shared_ptr<LuaLoader>& LuaLoader::get() {
     static auto instance = std::make_shared<LuaLoader>();
@@ -347,6 +348,7 @@ void LuaLoader::add_additional_bindings(sol::state_view& lua) {
     bindings::open_imgui(lua);
     bindings::open_json(lua);
     bindings::open_fs(lua);
+    bindings::open_vr(lua);
 }
 
 void LuaLoader::dispatch_event(std::string_view event_name, std::string_view event_data) {
