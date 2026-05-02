@@ -222,6 +222,9 @@ void OverlayComponent::on_draw_ui() {
 
         m_slate_distance->draw("UI Distance");
         m_slate_size->draw("UI Size");
+        m_slate_yaw->draw("UI Yaw");
+        m_slate_pitch->draw("UI Pitch");
+        m_slate_roll->draw("UI Roll");
         m_ui_follows_view->draw("UI Follows View");
         ImGui::SameLine();
         m_ui_invert_alpha->draw("UI Invert Alpha");
@@ -366,6 +369,21 @@ void OverlayComponent::update_slate_openvr() {
     glm_matrix[3] += m_slate_x_offset->value() * glm_matrix[0];
     glm_matrix[3] += m_slate_y_offset->value() * glm_matrix[1];
     glm_matrix[3].w = 1.0f;
+
+    // Apply yaw rotation around the forward axis
+    const auto yaw_radians = glm::radians(m_slate_yaw->value());
+    const auto yaw_rotation = glm::angleAxis(yaw_radians, glm::vec3{0.0f, 0.0f, 1.0f});
+    glm_matrix = glm::mat4{yaw_rotation} * glm_matrix;
+
+    // Apply pitch rotation around the up axis
+    const auto pitch_radians = glm::radians(m_slate_pitch->value());
+    const auto pitch_rotation = glm::angleAxis(pitch_radians, glm::vec3{0.0f, 1.0f, 0.0f});
+    glm_matrix = glm::mat4{pitch_rotation} * glm_matrix;
+
+    // Apply roll rotation around the right axis
+    const auto roll_radians = glm::radians(m_slate_roll->value());
+    const auto roll_rotation = glm::angleAxis(roll_radians, glm::vec3{1.0f, 0.0f, 0.0f});
+    glm_matrix = glm::mat4{roll_rotation} * glm_matrix;
     
     const auto steamvr_matrix = Matrix3x4f{glm::rowMajor4(glm_matrix)};
     vr::VROverlay()->SetOverlayTransformAbsolute(m_slate_overlay_handle, vr::TrackingUniverseStanding, (vr::HmdMatrix34_t*)&steamvr_matrix);
@@ -866,6 +884,21 @@ std::optional<std::reference_wrapper<XrCompositionLayerQuad>> OverlayComponent::
     glm_matrix[3] += m_parent->m_slate_y_offset->value() * glm_matrix[1];
     glm_matrix[3].w = 1.0f;
 
+    // Apply yaw rotation around the forward axis
+    const auto yaw_radians = glm::radians(m_parent->m_slate_yaw->value());
+    const auto yaw_rotation = glm::angleAxis(yaw_radians, glm::vec3{0.0f, 0.0f, 1.0f});
+    glm_matrix = glm::mat4{yaw_rotation} * glm_matrix;
+
+    // Apply pitch rotation around the up axis
+    const auto pitch_radians = glm::radians(m_parent->m_slate_pitch->value());
+    const auto pitch_rotation = glm::angleAxis(pitch_radians, glm::vec3{0.0f, 1.0f, 0.0f});
+    glm_matrix = glm::mat4{pitch_rotation} * glm_matrix;
+
+    // Apply roll rotation around the right axis
+    const auto roll_radians = glm::radians(m_parent->m_slate_roll->value());
+    const auto roll_rotation = glm::angleAxis(roll_radians, glm::vec3{1.0f, 0.0f, 0.0f});
+    glm_matrix = glm::mat4{roll_rotation} * glm_matrix;
+
     layer.pose.orientation = runtimes::OpenXR::to_openxr(glm::quat_cast(glm_matrix));
     layer.pose.position = runtimes::OpenXR::to_openxr(glm_matrix[3]);
 
@@ -980,6 +1013,21 @@ std::optional<std::reference_wrapper<XrCompositionLayerCylinderKHR>> OverlayComp
     glm_matrix[3] += m_parent->m_slate_x_offset->value() * glm_matrix[0];
     glm_matrix[3] += m_parent->m_slate_y_offset->value() * glm_matrix[1];
     glm_matrix[3].w = 1.0f;
+
+    // Apply yaw rotation around the forward axis
+    const auto yaw_radians = glm::radians(m_parent->m_slate_yaw->value());
+    const auto yaw_rotation = glm::angleAxis(yaw_radians, glm::vec3{0.0f, 0.0f, 1.0f});
+    glm_matrix = glm::mat4{yaw_rotation} * glm_matrix;
+
+    // Apply pitch rotation around the up axis
+    const auto pitch_radians = glm::radians(m_parent->m_slate_pitch->value());
+    const auto pitch_rotation = glm::angleAxis(pitch_radians, glm::vec3{0.0f, 1.0f, 0.0f});
+    glm_matrix = glm::mat4{pitch_rotation} * glm_matrix;
+
+    // Apply roll rotation around the right axis
+    const auto roll_radians = glm::radians(m_parent->m_slate_roll->value());
+    const auto roll_rotation = glm::angleAxis(roll_radians, glm::vec3{1.0f, 0.0f, 0.0f});
+    glm_matrix = glm::mat4{roll_rotation} * glm_matrix;
 
     layer.pose.orientation = runtimes::OpenXR::to_openxr(glm::quat_cast(glm_matrix));
     layer.pose.position = runtimes::OpenXR::to_openxr(glm_matrix[3]);
@@ -1131,3 +1179,4 @@ std::optional<std::reference_wrapper<XrCompositionLayerQuad>> OverlayComponent::
     return layer;
 }
 }
+

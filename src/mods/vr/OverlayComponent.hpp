@@ -39,11 +39,101 @@ public:
     }
 
     const auto& get_framework_intersect_state() const {
-        return m_intersect_state;
+        return m_framework_intersect_state;
     }
 
     bool should_invert_ui_alpha() const {
         return m_ui_invert_alpha->value();
+    }
+
+    // UI offset getters/setters for Lua API
+    float get_ui_offset_x() const {
+        return m_slate_x_offset->value();
+    }
+
+    void set_ui_offset_x(float value) {
+        m_slate_x_offset->value() = value;
+    }
+
+    float get_ui_offset_y() const {
+        return m_slate_y_offset->value();
+    }
+
+    void set_ui_offset_y(float value) {
+        m_slate_y_offset->value() = value;
+    }
+
+    float get_ui_offset_distance() const {
+        return m_slate_distance->value();
+    }
+
+    void set_ui_offset_distance(float value) {
+        m_slate_distance->value() = value;
+    }
+
+    float get_ui_size() const {
+        return m_slate_size->value();
+    }
+
+    void set_ui_size(float value) {
+        m_slate_size->value() = value;
+    }
+
+    bool get_ui_follows_view() const {
+        return m_ui_follows_view->value();
+    }
+
+    void set_ui_follows_view(bool value) {
+        m_ui_follows_view->value() = value;
+    }
+
+    int get_ui_overlay_type() const {
+        return m_slate_overlay_type->value();
+    }
+
+    void set_ui_overlay_type(int value) {
+        m_slate_overlay_type->value() = value;
+        force_overlay_update();
+    }
+
+    float get_ui_yaw() const {
+        return m_slate_yaw->value();
+    }
+
+    void set_ui_yaw(float value) {
+        m_slate_yaw->value() = value;
+        force_overlay_update();
+    }
+
+    float get_ui_roll() const {
+        return m_slate_roll->value();
+    }
+
+    void set_ui_roll(float value) {
+        m_slate_roll->value() = value;
+        force_overlay_update();
+    }
+
+    float get_ui_pitch() const {
+        return m_slate_pitch->value();
+    }
+
+    void set_ui_pitch(float value) {
+        m_slate_pitch->value() = value;
+        force_overlay_update();
+    }
+
+    float get_ui_cylinder_angle() const {
+        return m_slate_cylinder_angle->value();
+    }
+
+    void set_ui_cylinder_angle(float value) {
+        m_slate_cylinder_angle->value() = value;
+    }
+
+    // Force overlay update after setting values
+    void force_overlay_update() {
+        m_just_opened_ui = true;
     }
 
 private:
@@ -80,6 +170,7 @@ private:
     bool m_just_closed_ui{false};
     bool m_just_opened_ui{false};
     bool m_forced_aim{false};
+    bool m_overlay_needs_update{true};
     
     glm::vec2 m_last_mouse_pos{};
     std::chrono::steady_clock::time_point m_last_mouse_move_time{};
@@ -104,6 +195,9 @@ private:
     const ModSlider::Ptr m_slate_x_offset{ ModSlider::create("UI_X_Offset", -10.0f, 10.0f, 0.0f) };
     const ModSlider::Ptr m_slate_y_offset{ ModSlider::create("UI_Y_Offset", -10.0f, 10.0f, 0.0f) };
     const ModSlider::Ptr m_slate_size{ ModSlider::create("UI_Size", 0.5f, 10.0f, 2.0f) };
+    const ModSlider::Ptr m_slate_yaw{ ModSlider::create("UI_Yaw", -180.0f, 180.0f, 0.0f) };
+    const ModSlider::Ptr m_slate_pitch{ ModSlider::create("UI_Pitch", -180.0f, 180.0f, 0.0f) };
+    const ModSlider::Ptr m_slate_roll{ ModSlider::create("UI_Roll", -180.0f, 180.0f, 0.0f) };
     const ModSlider::Ptr m_slate_cylinder_angle{ ModSlider::create("UI_Cylinder_Angle", 0.0f, 360.0f, 90.0f) };
     const ModToggle::Ptr m_ui_follows_view{ ModToggle::create("UI_FollowView", false) };
     const ModToggle::Ptr m_ui_invert_alpha{ ModToggle::create("UI_InvertAlpha", false) };
@@ -124,6 +218,9 @@ public:
             *m_slate_y_offset,
             *m_slate_distance,
             *m_slate_size,
+            *m_slate_yaw,
+            *m_slate_pitch,
+            *m_slate_roll,
             *m_slate_cylinder_angle,
             *m_ui_follows_view,
             *m_ui_invert_alpha,
