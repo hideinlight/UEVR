@@ -156,6 +156,16 @@ type = "plugin"
 sources = ["examples/example_plugin/**.cpp", "examples/example_plugin/**.c"]
 headers = ["examples/example_plugin/**.hpp", "examples/example_plugin/**.h"]
 
+[target.mk12_camera_plugin]
+type = "plugin"
+sources = ["plugins/MK12CameraPlugin/**.cpp", "plugins/MK12CameraPlugin/**.c"]
+headers = ["plugins/MK12CameraPlugin/**.hpp", "plugins/MK12CameraPlugin/**.h"]
+include-directories = ["dependencies/lua/src"]
+link-libraries = ["lua"]
+
+[target.mk12_camera_plugin.properties]
+OUTPUT_NAME = "MK12CameraPlugin"
+
 [target.sdk-test]
 type = "shared"
 sources = ["side-projects/sdk-test/**.cpp", "side-projects/sdk-test/**.c"]

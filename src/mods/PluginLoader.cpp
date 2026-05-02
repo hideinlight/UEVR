@@ -1434,6 +1434,173 @@ void save_config() {
 void reload_config() {
     g_framework->deferred_reload_config();
 }
+
+/* World Scale functions */
+float get_world_scale() {
+    auto& vr = ::VR::get();
+    if (vr) {
+        return vr->get_world_scale();
+    }
+    return 1.0f;
+}
+
+void set_world_scale(float scale) {
+    auto& vr = ::VR::get();
+    if (vr) {
+        vr->set_world_scale(scale);
+    }
+}
+
+/* UI Overlay Component functions */
+float get_ui_offset_x() {
+    auto& vr = ::VR::get();
+    if (vr) {
+        return vr->get_overlay_component().get_ui_offset_x();
+    }
+    return 0.0f;
+}
+
+void set_ui_offset_x(float value) {
+    auto& vr = ::VR::get();
+    if (vr) {
+        vr->get_overlay_component().set_ui_offset_x(value);
+    }
+}
+
+float get_ui_offset_y() {
+    auto& vr = ::VR::get();
+    if (vr) {
+        return vr->get_overlay_component().get_ui_offset_y();
+    }
+    return 0.0f;
+}
+
+void set_ui_offset_y(float value) {
+    auto& vr = ::VR::get();
+    if (vr) {
+        vr->get_overlay_component().set_ui_offset_y(value);
+    }
+}
+
+float get_ui_offset_distance() {
+    auto& vr = ::VR::get();
+    if (vr) {
+        return vr->get_overlay_component().get_ui_offset_distance();
+    }
+    return 0.0f;
+}
+
+void set_ui_offset_distance(float value) {
+    auto& vr = ::VR::get();
+    if (vr) {
+        vr->get_overlay_component().set_ui_offset_distance(value);
+    }
+}
+
+float get_ui_size() {
+    auto& vr = ::VR::get();
+    if (vr) {
+        return vr->get_overlay_component().get_ui_size();
+    }
+    return 0.0f;
+}
+
+void set_ui_size(float value) {
+    auto& vr = ::VR::get();
+    if (vr) {
+        vr->get_overlay_component().set_ui_size(value);
+    }
+}
+
+bool get_ui_follows_view() {
+    auto& vr = ::VR::get();
+    if (vr) {
+        return vr->get_overlay_component().get_ui_follows_view();
+    }
+    return false;
+}
+
+void set_ui_follows_view(bool value) {
+    auto& vr = ::VR::get();
+    if (vr) {
+        vr->get_overlay_component().set_ui_follows_view(value);
+    }
+}
+
+int get_ui_overlay_type() {
+    auto& vr = ::VR::get();
+    if (vr) {
+        return vr->get_overlay_component().get_ui_overlay_type();
+    }
+    return 0;
+}
+
+void set_ui_overlay_type(int value) {
+    auto& vr = ::VR::get();
+    if (vr) {
+        vr->get_overlay_component().set_ui_overlay_type(value);
+    }
+}
+
+float get_ui_yaw() {
+    auto& vr = ::VR::get();
+    if (vr) {
+        return vr->get_overlay_component().get_ui_yaw();
+    }
+    return 0.0f;
+}
+
+void set_ui_yaw(float value) {
+    auto& vr = ::VR::get();
+    if (vr) {
+        vr->get_overlay_component().set_ui_yaw(value);
+    }
+}
+
+float get_ui_roll() {
+    auto& vr = ::VR::get();
+    if (vr) {
+        return vr->get_overlay_component().get_ui_roll();
+    }
+    return 0.0f;
+}
+
+void set_ui_roll(float value) {
+    auto& vr = ::VR::get();
+    if (vr) {
+        vr->get_overlay_component().set_ui_roll(value);
+    }
+}
+
+float get_ui_pitch() {
+    auto& vr = ::VR::get();
+    if (vr) {
+        return vr->get_overlay_component().get_ui_pitch();
+    }
+    return 0.0f;
+}
+
+void set_ui_pitch(float value) {
+    auto& vr = ::VR::get();
+    if (vr) {
+        vr->get_overlay_component().set_ui_pitch(value);
+    }
+}
+
+float get_ui_cylinder_angle() {
+    auto& vr = ::VR::get();
+    if (vr) {
+        return vr->get_overlay_component().get_ui_cylinder_angle();
+    }
+    return 90.0f;
+}
+
+void set_ui_cylinder_angle(float value) {
+    auto& vr = ::VR::get();
+    if (vr) {
+        vr->get_overlay_component().set_ui_cylinder_angle(value);
+    }
+}
 }
 
 } // namespace uevr::vr
@@ -1488,6 +1655,32 @@ UEVR_VRData g_vr_data {
     .get_mod_value = uevr::vr::get_mod_value,
     .save_config = uevr::vr::save_config,
     .reload_config = uevr::vr::reload_config,
+
+    /* World Scale functions */
+    .get_world_scale = uevr::vr::get_world_scale,
+    .set_world_scale = uevr::vr::set_world_scale,
+
+    /* UI Overlay Component functions */
+    .get_ui_offset_x = uevr::vr::get_ui_offset_x,
+    .set_ui_offset_x = uevr::vr::set_ui_offset_x,
+    .get_ui_offset_y = uevr::vr::get_ui_offset_y,
+    .set_ui_offset_y = uevr::vr::set_ui_offset_y,
+    .get_ui_offset_distance = uevr::vr::get_ui_offset_distance,
+    .set_ui_offset_distance = uevr::vr::set_ui_offset_distance,
+    .get_ui_size = uevr::vr::get_ui_size,
+    .set_ui_size = uevr::vr::set_ui_size,
+    .get_ui_follows_view = uevr::vr::get_ui_follows_view,
+    .set_ui_follows_view = uevr::vr::set_ui_follows_view,
+    .get_ui_overlay_type = uevr::vr::get_ui_overlay_type,
+    .set_ui_overlay_type = uevr::vr::set_ui_overlay_type,
+    .get_ui_yaw = uevr::vr::get_ui_yaw,
+    .set_ui_yaw = uevr::vr::set_ui_yaw,
+    .get_ui_roll = uevr::vr::get_ui_roll,
+    .set_ui_roll = uevr::vr::set_ui_roll,
+    .get_ui_pitch = uevr::vr::get_ui_pitch,
+    .set_ui_pitch = uevr::vr::set_ui_pitch,
+    .get_ui_cylinder_angle = uevr::vr::get_ui_cylinder_angle,
+    .set_ui_cylinder_angle = uevr::vr::set_ui_cylinder_angle,
 };
 
 

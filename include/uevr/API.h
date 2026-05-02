@@ -618,6 +618,32 @@ typedef struct {
     void (*get_mod_value)(const char* key, char* value, unsigned int value_size);
     void (*save_config)();
     void (*reload_config)();
+
+    /* World Scale functions */
+    float (*get_world_scale)();
+    void (*set_world_scale)(float scale);
+
+    /* UI Overlay Component functions */
+    float (*get_ui_offset_x)();
+    void (*set_ui_offset_x)(float value);
+    float (*get_ui_offset_y)();
+    void (*set_ui_offset_y)(float value);
+    float (*get_ui_offset_distance)();
+    void (*set_ui_offset_distance)(float value);
+    float (*get_ui_size)();
+    void (*set_ui_size)(float value);
+    bool (*get_ui_follows_view)();
+    void (*set_ui_follows_view)(bool value);
+    int (*get_ui_overlay_type)();
+    void (*set_ui_overlay_type)(int value);
+    float (*get_ui_yaw)();
+    void (*set_ui_yaw)(float value);
+    float (*get_ui_roll)();
+    void (*set_ui_roll)(float value);
+    float (*get_ui_pitch)();
+    void (*set_ui_pitch)(float value);
+    float (*get_ui_cylinder_angle)();
+    void (*set_ui_cylinder_angle)(float value);
 } UEVR_VRData;
 
 struct lua_State;

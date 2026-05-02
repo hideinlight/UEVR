@@ -424,6 +424,56 @@ target_link_libraries(example_plugin PUBLIC
 unset(CMKR_TARGET)
 unset(CMKR_SOURCES)
 
+# Target mk12_camera_plugin
+set(CMKR_TARGET mk12_camera_plugin)
+set(mk12_camera_plugin_SOURCES "")
+
+list(APPEND mk12_camera_plugin_SOURCES
+	"plugins/MK12CameraPlugin/MK12CameraPlugin.cpp"
+)
+
+list(APPEND mk12_camera_plugin_SOURCES
+	cmake.toml
+)
+
+set(CMKR_SOURCES ${mk12_camera_plugin_SOURCES})
+add_library(mk12_camera_plugin SHARED)
+
+if(mk12_camera_plugin_SOURCES)
+	target_sources(mk12_camera_plugin PRIVATE ${mk12_camera_plugin_SOURCES})
+endif()
+
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${mk12_camera_plugin_SOURCES})
+
+target_compile_features(mk12_camera_plugin PUBLIC
+	cxx_std_23
+)
+
+target_include_directories(mk12_camera_plugin PUBLIC
+	"include/"
+	"examples/renderlib"
+)
+
+target_link_libraries(mk12_camera_plugin PUBLIC
+	plugin_renderlib
+)
+
+target_include_directories(mk12_camera_plugin PUBLIC
+	"dependencies/lua/src"
+)
+
+target_link_libraries(mk12_camera_plugin PUBLIC
+	lua
+)
+
+set_target_properties(mk12_camera_plugin PROPERTIES
+	OUTPUT_NAME
+		MK12CameraPlugin
+)
+
+unset(CMKR_TARGET)
+unset(CMKR_SOURCES)
+
 # Target sdk-test
 set(CMKR_TARGET sdk-test)
 set(sdk-test_SOURCES "")
