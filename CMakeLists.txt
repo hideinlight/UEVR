@@ -866,6 +866,7 @@ list(APPEND uevr_SOURCES
 	"src/uevr-imgui/imgui_impl_win32.h"
 )
 
+
 list(APPEND uevr_SOURCES
 	cmake.toml
 )
@@ -876,6 +877,8 @@ add_library(uevr SHARED)
 if(uevr_SOURCES)
 	target_sources(uevr PRIVATE ${uevr_SOURCES})
 endif()
+
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${uevr_SOURCES})
 
 
 target_compile_features(uevr PUBLIC

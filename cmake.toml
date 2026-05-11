@@ -281,6 +281,10 @@ ARCHIVE_OUTPUT_DIRECTORY_RELWITHDEBINFO = "${CMAKE_BINARY_DIR}/lib/${CMKR_TARGET
 
 [target.uevr]
 type="ue4template"
+sources = [
+]
+headers = [
+]
 link-libraries = [
     "kananlib",
     "uesdk"

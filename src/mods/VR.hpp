@@ -584,8 +584,16 @@ public:
         return m_roomscale_movement->value() && !m_aim_temp_disabled;
     }
 
+    void set_roomscale_enabled(bool enabled) {
+        m_roomscale_movement->value() = enabled;
+    }
+
     bool is_roomscale_sweep_enabled() const {
         return m_roomscale_sweep->value();
+    }
+
+    void set_roomscale_sweep_enabled(bool enabled) {
+        m_roomscale_sweep->value() = enabled;
     }
 
     bool is_dpad_shifting_enabled() const {

@@ -194,6 +194,51 @@ void set_ui_cylinder_angle(float value) {
     }
 }
 
+bool is_decoupled_pitch_enabled() {
+    auto& vr = VR::get();
+    if (vr) {
+        return vr->is_decoupled_pitch_enabled();
+    }
+    return false;
+}
+
+void set_decoupled_pitch_enabled(bool enabled) {
+    auto& vr = VR::get();
+    if (vr) {
+        vr->set_decoupled_pitch(enabled);
+    }
+}
+
+bool is_roomscale_enabled() {
+    auto& vr = VR::get();
+    if (vr) {
+        return vr->is_roomscale_enabled();
+    }
+    return false;
+}
+
+void set_roomscale_enabled(bool enabled) {
+    auto& vr = VR::get();
+    if (vr) {
+        vr->set_roomscale_enabled(enabled);
+    }
+}
+
+bool is_roomscale_sweep_enabled() {
+    auto& vr = VR::get();
+    if (vr) {
+        return vr->is_roomscale_sweep_enabled();
+    }
+    return false;
+}
+
+void set_roomscale_sweep_enabled(bool enabled) {
+    auto& vr = VR::get();
+    if (vr) {
+        vr->set_roomscale_sweep_enabled(enabled);
+    }
+}
+
 } // namespace api::vr
 
 void bindings::open_vr(sol::state_view& lua) {
@@ -221,6 +266,12 @@ void bindings::open_vr(sol::state_view& lua) {
     vr["set_ui_pitch"] = api::vr::set_ui_pitch;
     vr["get_ui_cylinder_angle"] = api::vr::get_ui_cylinder_angle;
     vr["set_ui_cylinder_angle"] = api::vr::set_ui_cylinder_angle;
+    vr["is_decoupled_pitch_enabled"] = api::vr::is_decoupled_pitch_enabled;
+    vr["set_decoupled_pitch_enabled"] = api::vr::set_decoupled_pitch_enabled;
+    vr["is_roomscale_enabled"] = api::vr::is_roomscale_enabled;
+    vr["set_roomscale_enabled"] = api::vr::set_roomscale_enabled;
+    vr["is_roomscale_sweep_enabled"] = api::vr::is_roomscale_sweep_enabled;
+    vr["set_roomscale_sweep_enabled"] = api::vr::set_roomscale_sweep_enabled;
 
     lua["vr"] = vr;
 }
